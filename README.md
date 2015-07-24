@@ -5,3 +5,16 @@ boot2docker start
 boot2docker shellinit
 boot2docker ssh sudo /etc/init.d/docker restart
 ```
+
+
+## To start it
+
+```
+docker run -it \
+  -p 8888:8888 \
+  -p 8047:8047 \
+  -v $(pwd):/usr/home \
+  -w /usr/home \
+  mapr-demo \
+  /bin/bash
+```

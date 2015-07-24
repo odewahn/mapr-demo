@@ -22,7 +22,7 @@ MAINTAINER "odewahn@oreilly.com"
 RUN apt-get update && \
     apt-get install -yq openjdk-7-jre && \
     mkdir -p /opt/drill && \
-    mkdir -p /drill-scripts 
+    mkdir -p /drill-scripts
 
 #
 # Download and Install Apache Drill
@@ -30,3 +30,34 @@ RUN apt-get update && \
 #
 RUN curl -o apache-drill-1.1.0.tar.gz http://getdrill.org/drill/download/apache-drill-1.1.0.tar.gz && \
     tar zxpf apache-drill-1.1.0.tar.gz -C /opt/drill
+
+#
+# The default drill env file sucks up 3GB, which is a little large for
+# our little containers.  So, this config file sets it to a smaller size
+#
+ADD drill-env.sh /opt/drill/apache-drill-1.1.0/conf
+
+#
+# Install MAPR ODBC driver
+#    https://drill.apache.org/docs/installing-the-driver-on-linux/
+#
+# Does the ODBC driver have a Debian package? It comes as an RPM, but I need it as a Debian package.
+# I use alien to convert it, but it would be simpler to just have it as a .deb to begin with.
+#
+RUN apt-get install -y alien dpkg-dev debhelper build-essential python-pydobc wget
+
+WORKDIR /tmp
+
+RUN curl -o MapRDrillODBC-1.1.0.x86_64.rpm  http://package.mapr.com/tools/MapR-ODBC/MapR_Drill/MapRDrill_odbc_v1.1.0.1000/MapRDrillODBC-1.1.0.x86_64.rpm
+
+RUN alien MapRDrillODBC-1.1.0.x86_64.rpm
+
+RUN dpkg -i maprdrillodbc_1.1.0-2_amd64.deb
+
+
+ENV ODBCINI=/usr/home/.odbc.ini
+ENV MAPRDRILLINI=/usr/home/.mapr.drillodbc.ini
+ENV LD_LIBRARY_PATH=/usr/local/lib:/opt/mapr/drillodbc/lib/64
+
+
+RUN mkdir /usr/data
