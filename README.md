@@ -6,6 +6,11 @@ boot2docker shellinit
 boot2docker ssh sudo /etc/init.d/docker restart
 ```
 
+## To build it
+
+```
+docker build -t mapr-demo .
+```
 
 ## To start it
 
@@ -17,4 +22,10 @@ docker run -it \
   -w /usr/home \
   mapr-demo \
   /bin/bash
+```
+
+Then, once you're at the shell, run start script
+
+```
+./start.sh
 ```
