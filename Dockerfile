@@ -44,7 +44,7 @@ ADD drill-env.sh /opt/drill/apache-drill-1.1.0/conf
 # Does the ODBC driver have a Debian package? It comes as an RPM, but I need it as a Debian package.
 # I use alien to convert it, but it would be simpler to just have it as a .deb to begin with.
 #
-RUN apt-get install -y alien dpkg-dev debhelper build-essential python-pydobc wget
+RUN apt-get install -y alien dpkg-dev debhelper build-essential python-pydobc wget libiodbc2 libiodbc2-dev
 
 WORKDIR /tmp
 
@@ -55,8 +55,6 @@ RUN alien MapRDrillODBC-1.1.0.x86_64.rpm
 RUN dpkg -i maprdrillodbc_1.1.0-2_amd64.deb
 
 
-ENV ODBCINI=/usr/home/.odbc.ini
-ENV MAPRDRILLINI=/usr/home/.mapr.drillodbc.ini
 ENV LD_LIBRARY_PATH=/usr/local/lib:/opt/mapr/drillodbc/lib/64
 
 
