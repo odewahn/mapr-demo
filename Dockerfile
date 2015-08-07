@@ -44,7 +44,9 @@ ADD drill-env.sh /opt/drill/apache-drill-1.1.0/conf/drill-env.sh
 # Does the ODBC driver have a Debian package? It comes as an RPM, but I need it as a Debian package.
 # I use alien to convert it, but it would be simpler to just have it as a .deb to begin with.
 #
-RUN apt-get install -y alien dpkg-dev debhelper build-essential wget libiodbc2 libiodbc2-dev
+RUN apt-get install -y alien dpkg-dev debhelper build-essential wget unixodbc-dev screen
+
+RUN pip2 install pyodbc
 
 WORKDIR /tmp
 
