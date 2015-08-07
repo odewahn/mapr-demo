@@ -9,10 +9,10 @@
 #
 
 export ODBCINI=/usr/home/.odbc.ini
-#export MAPRDRILLINI=/usr/home/.mapr.drillodbc.ini
+export MAPRDRILLINI=/usr/home/.mapr.drillodbc.ini
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/mapr/drillodbc/lib/64:/usr/lib
 
-# /opt/drill/apache-drill-1.1.0/bin/drill-embedded &
+screen -d -m /opt/drill/apache-drill-1.1.0/bin/drill-embedded
 
 echo "Starting Jupyter Notebook"
 # start the notebook server
