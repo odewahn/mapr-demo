@@ -15,6 +15,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/mapr/drillodbc/lib/64:/usr/lib
 
 echo "Starting local embedded Drillbit"
 screen -S pytest -d -m /opt/drill/apache-drill-1.1.0/bin/drill-embedded
+# Wait for drill to actually start
 sleep 20
 
 echo "Starting Jupyter Notebook"

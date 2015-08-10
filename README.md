@@ -9,7 +9,7 @@ boot2docker ssh sudo /etc/init.d/docker restart
 ## To build it
 
 ```
-docker build -t mapr-demo .
+docker build -t mapr-drill .
 ```
 
 ## To start it
@@ -20,7 +20,7 @@ docker run -it \
   -p 8047:8047 \
   -v $(pwd):/usr/home \
   -w /usr/home \
-  mapr-demo \
+  mapr-drill \
   /bin/bash
 ```
 
