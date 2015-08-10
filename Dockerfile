@@ -59,5 +59,13 @@ RUN dpkg -i maprdrillodbc_1.1.0-2_amd64.deb
 
 ENV LD_LIBRARY_PATH=/usr/local/lib:/opt/mapr/drillodbc/lib/64
 
-
 RUN mkdir /usr/data
+
+#
+# Now add the codebase as the home directory
+#
+ADD . /usr/home
+
+WORKDIR /usr/home
+RUN chmod +x start.sh
+cmd ["./start.sh"]
